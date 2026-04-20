@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill Gap Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo-mark.png" alt="Skill Gap Analyzer Logo" class="logo-img" />
+      <div>
+        <h1>Skill Gap Analyzer</h1>
+        <p>Compare resume and job description to identify skill gaps.</p>
+      </div>
+    </div>
+    <div class="profile">H <span>⌄</span></div>
+  </header>
+
+  <main class="layout">
+    <!-- LEFT -->
+    <aside class="sidebar">
+      <h2>System Overview</h2>
+      <button class="nav-btn active" data-panel="dashboardPanel">🧭 Dashboard</button>
+
+      <h3>My Analysis</h3>
+      <button class="nav-btn" data-panel="savedPanel">🔖 Saved Skills</button>
+      <button class="nav-btn" data-panel="reportsPanel">📄 Gap Reports</button>
+
+      <div class="sidebar-footer">Minimal • Functional • Local Storage Enabled</div>
+    </aside>
+
+    <!-- CENTER -->
+    <section class="workspace">
+      <!-- DASHBOARD PANEL -->
+      <div id="dashboardPanel" class="panel active-panel">
+        <div class="cards">
+          <article class="card">
+            <div class="card-head">
+              <h3>Resume <span>(Analyze Your Skills)</span></h3>
+              <span id="resumeStatusDot" class="dot red"></span>
+            </div>
+
+            <textarea id="resumeText" placeholder="Paste resume Text here..."></textarea>
+
+            <div class="actions">
+              <button id="saveResumeBtn" class="btn primary">💾 Save Resume</button>
+              <button id="clearResumeBtn" class="btn ghost">🧹 Clear Resume</button>
+            </div>
+
+            <p id="resumeTags" class="hint">No keywords detected yet</p>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>Job Description <span>(Target Requirements)</span></h3>
+              <span id="jobStatusDot" class="dot red"></span>
+            </div>
+
+            <textarea id="jobText" placeholder="Paste job description here..."></textarea>
+
+            <div class="actions">
+              <button id="clearJobBtn" class="btn ghost">🧹 Clear Job Description</button>
+            </div>
+
+            <p id="jobTags" class="hint">No keywords detected yet</p>
+          </article>
+        </div>
+
+        <button id="analyzeBtn" class="analyze-btn">Analyze Skills</button>
+
+        <section id="result" class="result hidden">
+          <h3>Analysis Result</h3>
+          <p><strong>Match Score:</strong> <span id="matchScore">0%</span></p>
+          <h4>Matched Skills</h4>
+          <div id="matchedSkills" class="chips"></div>
+          <h4>Missing Skills</h4>
+          <div id="missingSkills" class="chips"></div>
+        </section>
+      </div>
+
+      <!-- SAVED SKILLS PANEL -->
+      <div id="savedPanel" class="panel">
+        <div class="panel-box">
+          <h2>🔖 Saved Skills / Resumes</h2>
+          <p class="panel-sub">Click "Load" to insert resume into editor.</p>
+          <div id="savedList" class="entry-list"></div>
+        </div>
+      </div>
+
+      <!-- GAP REPORTS PANEL -->
+      <div id="reportsPanel" class="panel">
+        <div class="panel-box">
+          <h2>📄 Gap Reports</h2>
+          <p class="panel-sub">Charts generated from your recent analyses.</p>
+
+          <div class="chart-wrap">
+            <h4>Latest Match Score</h4>
+            <div class="bar-bg">
+              <div id="scoreBar" class="bar-fill">0%</div>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <h4>Missing Skills (Top 8)</h4>
+            <div id="missingChart" class="mini-bars"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="insights">
+      <h2 class="insight-title">📊 Live Insights</h2>
+
+      <div class="insight-grid">
+        <div class="meter-card">
+          <div class="meter-head">
+            <span class="meter-logo">📄</span>
+            <p>Resume Words</p>
+          </div>
+          <div class="meter"><span id="resumeWords">0</span></div>
+        </div>
+
+        <div class="meter-card">
+          <div class="meter-head">
+            <span class="meter-logo">📝</span>
+            <p>Job Description</p>
+          </div>
+          <div class="meter"><span id="jobWords">0</span></div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <p>📌 Job Description Word Count</p>
+        <strong id="jobWordsLarge">0</strong>
+      </div>
+
+      <div class="progress-block">
+        <p>⚡ New Analysis Progress</p>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        <small id="progressText">Waiting for input...</small>
+      </div>
+
+      <div class="status-card">
+        <p>🧾 Resume Status</p>
+        <div class="pills">
+          <span id="resumeStatusTxt" class="pill red">Empty</span>
+          <span class="pill yellow">Analyzing</span>
+        </div>
+      </div>
+
+      <div class="status-card">
+        <p>✅ Job Status</p>
+        <div class="pills">
+          <span id="jobStatusTxt" class="pill green">Processed</span>
+          <span class="pill green">Processed</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer-note">
+    Privacy Note: Data is processed on your local backend and not stored permanently by server.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
